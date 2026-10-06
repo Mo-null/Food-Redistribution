@@ -1,0 +1,12 @@
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["F", "I", "UP", "B904"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["db", "models", "routers", "schemas", "services", "utils"]
+
+[tool.ruff.format]
+line-ending = "lf"
