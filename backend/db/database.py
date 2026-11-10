@@ -13,7 +13,7 @@ if not DATABASE_URL:
         "DATABASE_URL=postgresql://user:password@localhost:5432/food_platform"
     )
 
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL, pool_pre_ping=True)
 
 
 class Base(DeclarativeBase):
