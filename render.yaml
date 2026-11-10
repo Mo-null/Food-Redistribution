@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: food-redistribution-api
+    name: foodredistapi
     runtime: python
     region: singapore
     plan: free
@@ -16,12 +16,12 @@ services:
       - key: SECRET_KEY
         generateValue: true
       - key: CORS_ORIGINS
-        value: https://food-redistribution-web.onrender.com
+        value: https://foodredistapp.onrender.com
       - key: LLM_MOCK
         value: "false"
 
   - type: web
-    name: food-redistribution-web
+    name: foodredistapp
     runtime: static
     buildCommand: cd frontend && npm install && npm run build
     staticPublishPath: ./frontend/dist
@@ -29,7 +29,7 @@ services:
       - key: NODE_VERSION
         value: 22.12.0
       - key: VITE_API_URL
-        value: https://food-redistribution-api.onrender.com
+        value: https://foodredistapi.onrender.com
     routes:
       - type: rewrite
         source: /*
