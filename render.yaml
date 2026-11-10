@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: food-redistribution-api
+    runtime: python
+    region: singapore
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python create_tables.py && (python train_match_model.py || true)
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.3
+      - key: DATABASE_URL
+        sync: false 
+      - key: SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://food-redistribution-web.onrender.com
+      - key: LLM_MOCK
+        value: "false"
+
+  - type: web
+    name: food-redistribution-web
+    runtime: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: ./frontend/dist
+    envVars:
+      - key: NODE_VERSION
+        value: 22.12.0
+      - key: VITE_API_URL
+        value: https://food-redistribution-api.onrender.com
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
