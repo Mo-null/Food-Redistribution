@@ -12,7 +12,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.14.3
       - key: DATABASE_URL
-        sync: false 
+        sync: false
       - key: SECRET_KEY
         generateValue: true
       - key: CORS_ORIGINS
